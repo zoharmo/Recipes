@@ -1,0 +1,31 @@
+<div class="fh5co-narrow-content" ng-controller="recipeDetailsCtrl" >
+
+    <div class="row">
+        <button type="button" ng-if="canEdit && !editMode" class="btn btn-success" ng-click="edit()">edit</button>
+        <button type="button" ng-if="canEdit && !editMode" class="btn btn-danger" ng-click="delete()">delete</button>
+        <button type="button" ng-if="canEdit && editMode" class="btn btn-success" ng-click="save()">save</button>
+        <button type="button" ng-if="canEdit && editMode" class="btn btn-danger" ng-click="cancel()">cancel</button>
+
+        <div class="col-md-12 animated fadeInLeft">
+            <figure class="text-center">
+                <img ng-src="/api/dataservice/GetRecipeImageById/{{recipeDetails.id}}" class="img-responsive">
+            </figure>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2 animated fadeInLeft">
+
+            <div ng-if="!editMode" class="col-md-9 col-md-push-3">
+                <h1>{{recipeDetails.title}}</h1>
+                <p> {{recipeDetails.content}}</p>
+            </div>
+            
+            <div ng-if="editMode" class="col-md-9 col-md-push-3">
+                <div class="col-md-12"><input type="text" ng-model="recipeDetails.title" /></div>
+                <div class="col-md-12"><textarea ng-model="recipeDetails.content"></textarea></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

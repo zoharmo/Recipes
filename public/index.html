@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My Recipes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <!-- Grid -->
+    <link rel="stylesheet" href="css/ui-grid.css">
+
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/recipeStyle.css">
+
+    <!-- Modernizr JS -->
+    <!--<script src="js/modernizr-2.6.2.min.js"></script>-->
+
+    <!--Libs-->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="libs/jquery.js"></script>
+    <script src="libs/angular.js"></script>
+    <script src="libs/angular-route.js"></script>
+    <script src="libs/angular-animate.js"></script>
+    <script src="libs/angular-touch.js"></script>
+    <script src="libs/angular-cookies.js"></script>
+    <script src="libs/underscore.js"></script>
+    <script src="libs/ui-grid.js"></script>
+    <script src="js/main.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+</head>
+
+<body ng-app="recipesApp" ng-controller="usersManagerGridCtrl" >
+<div id="fh5co-page">
+
+
+    <header>
+        <section class="login-section" >
+            <ul>
+                <li ng-if="connected&&currentUser.isAdmin">
+                    <div class="dropdown">
+                        <img class="private-zone-but" height="40px" width="40px" src="../images/settings_icon1.png"
+                             alt="Admin Zone">
+                        <div class="dropdown-content">
+                            <!--<img src="img_fjords.jpg" alt="Trolltunga Norway" width="300" height="200">-->
+                            <a href="/usersManager">Manage Users</a>
+                            <a href="/recipes">Manage Recipes</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li ng-if="connected">
+                    <div class="dropdown">
+                        <img class="private-zone-but" height="40px" width="40px" src="../images/person_icon.png"
+                             alt="Private Zone">
+                        <div class="dropdown-content" z-index=9999>
+                            <!--<img src="img_fjords.jpg" alt="Trolltunga Norway" width="300" height="200">-->
+                            <a href="/myProfile">my profile</a>
+                            <a ng-href="/users/{{currentUser.email}}/recipes">my recipes</a>
+                            <a href="/myIngredients">my ingredients</a>
+                            <a href="/userRecipes">user graph</a>
+                            <a href="/categoryRecipes">category graph</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <a  ng-if="!connected" href="/login">Login</a>
+                    <label ng-if="connected">Hello {{currentUser.userName}}</label>
+
+                </li>
+                <li style="margin: 10px"> |</li>
+                <li>
+                    <a ng-if="!connected" href="/register">Register</a>
+                    <a ng-if="connected" ng-click="logout()" href="/signOut">Logout</a>
+
+                </li>
+
+            </ul>
+        </section>
+    </header>
+
+    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+    <aside id="fh5co-aside" role="complementary" class="border js-fullheight">
+
+        <h1 id="fh5co-logo"><a href="index.html"><img src="images/logo.jpg"></a></h1>
+        <nav id="fh5co-main-menu" role="navigation">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/categories">Categories</a></li>
+                <li><a href="/recipesSearch">Recipes</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+
+
+        <section class="fh5co-footer">
+            <!--<section class="fb-like" data-href="https://www.facebook.com/recipeSiteWeb?ref=aymt_homepage_panel" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></section>-->
+            <ul>
+                <!--facebook-->
+                <div class="fb-like" data-href="https://www.facebook.com/recipeSiteWeb/" data-layout="button"
+                     data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+            </ul>
+            <ul style="margin-top: 20px">
+                <li><a href="https://www.facebook.com/recipeSiteWeb/"><i class="icon-facebook"></i></a></li>
+                <li><a href="#"><i class="icon-twitter"></i></a></li>
+                <li><a href="#"><i class="icon-instagram"></i></a></li>
+                <li><a href="#"><i class="icon-linkedin"></i></a></li>
+            </ul>
+
+        </section>
+
+
+    </aside>
+
+    <div id="fh5co-main" data-ng-view=""></div>
+
+    <!--TODO - maybe script in ctrl-->
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=818834374895942";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!--<script src="js/google_map.js"></script>-->
+    <script src="app.js"></script>
+    <!--Controllers-->
+    <script src="javascripts/controllers/userManagerCtrl.js"></script>
+    <script src="javascripts/controllers/googleMapsCtrl.js"></script>
+    <script src="javascripts/controllers/usersManagerGridCtrl.js"></script>
+    <script src="javascripts/controllers/usersGridCtrl.js"></script>
+    <script src="javascripts/controllers/createRecipeCtrl.js"></script>
+    <script src="javascripts/controllers/viewRecipesCtrl.js"></script>
+    <script src="javascripts/controllers/userRecipesGraphCtrl.js"></script>
+    <script src="javascripts/controllers/categoryRecipesPieCtrl.js"></script>
+    <script src="/javascripts/controllers/myIngredientsCtrl.js"></script>
+    <script src="/javascripts/controllers/addIngredientsCtrl.js"></script>
+    <script src="/javascripts/controllers/categoriesCtrl.js"></script>
+    <script src="/javascripts/controllers/recipeDetailsCtrl.js"></script>
+    <script src="/javascripts/controllers/canvasCtrl.js"></script>
+    <script src="/javascripts/controllers/categoriesCtrl.js"></script>
+    <script src="javascripts/controllers/categoryRecipesCtrl.js"></script>
+    <script src="/javascripts/controllers/categoryFormCtrl.js"></script>
+    <script src="/javascripts/controllers/recipesSearchCtrl.js"></script>
+    <script src="/javascripts/controllers/recipeDetailsCtrl.js"></script>
+
+    <!--Services-->
+    <script src="javascripts/services/userService.js"></script>
+    <script src="/javascripts/services/ingredientService.js"></script>
+    <script src="/javascripts/services/categoriesService.js"></script>
+    <script src="javascripts/services/recipeService.js"></script>
+    <script src="/javascripts/services/recipeDetailsService.js"></script>
+
+    <!--Directives-->
+    <script src="javascripts/directives/newUserMailValidation.js"></script>
+
+    <!-- MAIN JS -->
+    <script src="js/main.js"></script>
+
+</div>
+</body>
+</html>

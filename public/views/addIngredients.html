@@ -1,0 +1,13 @@
+<div ng-show="isShowMessage" class="alert alert-success" style="text-align: center;">
+        {{ingredientMessage}}
+    </div>
+            <div style="margin:100px" class="animated zoomInRight">
+                <input type="text" ng-model="search" ng-model-options="{ debounce: 800 }" onclick="select()" class="form-control" placeholder="Enter Ingredient to search" autofocus />
+                <div style="margin-top: 50px" ng-show="dataLoaded" id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid"></div>
+
+                <div>
+                    <button style="margin-top: 10px" type="button" ng-show="c" ng-click="addIngredient(0)" class="btn btn-primary">Add</button>
+                </div>
+
+
+</div>

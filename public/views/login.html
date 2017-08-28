@@ -1,0 +1,17 @@
+<form name="loginForm" id="loginForm" ng-submit="login()" >
+    <div ng-show="isShowError" class="alert alert-danger" style="text-align: center;" >
+        User mail or Password are invalid
+    </div>
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="form-group">
+            <label>user mail:</label>
+            <input type="email" name="userMail" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>password:</label>
+            <input type="password" name="userPassword" class="form-control" required>
+        </div>
+
+        <button class="btn btn-primary">Login</button>
+    </div>
+</form>

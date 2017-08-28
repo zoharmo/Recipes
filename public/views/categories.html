@@ -1,0 +1,16 @@
+<div class="fh5co-narrow-content" >
+
+    <a type="button" class="btn btn-success animated fadeInLeft" href="/createCategory" ng-if="connected&&currentUser.isAdmin">create</a>
+    <h2 class="fh5co-heading animated fadeInLeft" >Categories</span></h2>
+    <div class="row animated fadeInLeft">
+
+        <div ng-repeat="x in categories" class="col-md-4 col-sm-6 col-xs-6 col-xsxs-12 work-item">
+            <a ng-href="/categories/{{x.id}}/recipes">
+                <img src="{{uploadsUrl}}{{x.image}}" class="img-responsive">
+                <h3 class="fh5co-work-title">{{x.name}}</h3>
+            </a>
+            <a class="btn btn-primary-custom btn-sm" ng-if="connected&&currentUser.isAdmin" href="/editCategory/{{x.id}}">edit</a>
+            <a class="btn btn-primary-custom btn-outline btn-sm" href="/" ng-if="connected&&currentUser.isAdmin" ng-click="removeCategory(x.id)">remove</a>
+        </div>
+    </div>
+</div>

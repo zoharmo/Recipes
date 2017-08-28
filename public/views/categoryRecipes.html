@@ -1,0 +1,19 @@
+
+<div class="fh5co-narrow-content" >
+
+    <a type="button" class="btn btn-success" href="/createRecipe">create</a>
+    <h2 class="fh5co-heading animated fadeInLeft">{{category}} recipes</span></h2>
+    <div class="row animated fadeInLeft">
+
+        <div ng-repeat="x in recipes" class="col-md-4 col-sm-6 col-xs-6 col-xsxs-12 work-item">
+            <!--TODO - add id-->
+            <a href="/recipeDetails/{{x.id}}">
+                <img src="{{x.image}}" class="img-responsive">
+                <h3 class="fh5co-work-title">{{x.title}}</h3>
+            </a>
+            <a class="btn btn-primary-custom btn-sm" ng-if="connected&&(currentUser.isAdmin || x.user == currentUser.email)" href="/editRecipe/{{x.name}}">edit</a>
+            <a class="btn btn-primary-custom btn-outline btn-sm" ng-if="connected&&(currentUser.isAdmin || x.user == currentUser.email)"  href="/removeRecipe">remove</a>
+            <button class="btn btn-primary btn-xs btn-like" ng-click="like(x.id)">{{x.likeAmount}} Likes</button>
+        </div>
+    </div>
+</div>
